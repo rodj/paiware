@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "Library Book Checkout API",
+    "description": "Collection for testing the Library Book Checkout API. Run requests in order for a complete demonstration.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7038",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Get all books",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/books",
+        "description": "Returns all books with their current availability status. On a fresh start, books 1, 3, and 5 are available; books 2 and 4 are checked out."
+      }
+    },
+    {
+      "name": "2. Check out a book",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/checkouts",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bookId\": 1,\n  \"memberId\": 1\n}"
+        },
+        "description": "Checks out book 1 (The Pragmatic Programmer) to member 1 (Alice Johnson). Returns the new checkout with a due date 14 days from now."
+      }
+    },
+    {
+      "name": "3. Try to check out the same book again (expect 409)",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/checkouts",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bookId\": 1,\n  \"memberId\": 2\n}"
+        },
+        "description": "Attempts to check out book 1 again while it is already checked out. Should return 409 Conflict."
+      }
+    },
+    {
+      "name": "4. Get all books (verify book 1 now unavailable)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/books",
+        "description": "Call this after request #2 to confirm book 1 now shows isAvailable: false."
+      }
+    },
+    {
+      "name": "5. Return a book (checkout id 10)",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/checkouts/10/return",
+        "description": "Returns checkout #10 — the first checkout created during the session (IDs start at 10). After this, book 1 becomes available again."
+      }
+    },
+    {
+      "name": "6. Get overdue checkouts",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/checkouts/overdue",
+        "description": "Returns all unreturned checkouts past their due date. Checkout #1 (book 2, checked out 20 days ago) is seeded as overdue."
+      }
+    },
+    {
+      "name": "7. Dashboard stats",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/checkouts/dashboard",
+        "description": "Returns summary statistics: total books, available, checked out, overdue, and total members."
+      }
+    }
+  ]
+}
