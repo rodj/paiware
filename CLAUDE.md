@@ -115,6 +115,20 @@ that creates a fresh store per test.
 
 ---
 
+## Seed Data — Member Names
+
+Current members use real names from the developer's family:
+- **Alice Hinson** (daughter)
+- **Robert Martin** (developer)
+- **Rodj O'Matic** (nickname-based fictional member)
+
+Reserved for future use if more members are needed:
+- **Debbie Martin** (wife)
+- **Christine Martin** (daughter)
+- **Leslie Sharpe** (daughter)
+
+---
+
 ## Conventions
 
 - Controllers return `IActionResult` with appropriate HTTP status codes

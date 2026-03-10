@@ -11,6 +11,9 @@
 .vs/
 *.csproj.user
 
+# Local developer overrides — connection strings, secrets (do not commit)
+appsettings.Development.json
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

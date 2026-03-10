@@ -1,4 +1,4 @@
-namespace LibraryApi.Models;
+namespace Library.Core.Models;
 
 public class Member
 {

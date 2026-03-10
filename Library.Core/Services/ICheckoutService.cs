@@ -1,4 +1,4 @@
-namespace LibraryApi.Services;
+namespace Library.Core.Services;
 
 public record BookSummary(int Id, string Title, string Author, string Isbn, bool IsAvailable);
 
@@ -20,6 +20,7 @@ public record DashboardStats(
 public interface ICheckoutService
 {
     IEnumerable<BookSummary> GetAllBooks();
+    BookSummary AddBook(string title, string author, string isbn);
     CheckoutDetail CheckOutBook(int bookId, int memberId);
     CheckoutDetail ReturnBook(int checkoutId);
     IEnumerable<CheckoutDetail> GetOverdueCheckouts();

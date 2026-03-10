@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="Library.Core/Library.Core.csproj" />
+  <Project Path="Library.EF/Library.EF.csproj" />
+  <Project Path="LibraryApi.Tests/LibraryApi.Tests.csproj" />
   <Project Path="LibraryApi/LibraryApi.csproj" />
 </Solution>

@@ -115,19 +115,71 @@ database only touched the data layer. Controllers and tests were unchanged."
 
 ### v4-react — React Frontend
 
-**Goal:** Full-stack, deployed at rodj.me.
-**Story:** "The API was already complete and tested. The frontend is a clean layer on top."
+**Goal:** Full-stack React frontend deployed at rodj.me, talking directly to the live API.
+**Story:** "The API was already complete and tested. The frontend is a clean layer on top,
+and the whole thing is live at rodj.me for the reviewer to see."
 
-**Stack:** Vite + React + TypeScript
+**Frontend stack:**
+- **Vite** — build tool (fast dev server, optimized production builds)
+- **React + TypeScript** — component framework
+- **Tailwind CSS** — utility-first styling, no custom CSS files needed
+- **TanStack Query (React Query)** — server state management: handles loading/error
+  states, caching, and refetching automatically
+- **React Router v6** — client-side navigation between views
+- **Native fetch** — HTTP calls (TanStack Query wraps these cleanly)
 
 **Views:**
-- Book list with availability status
-- Check out a book (select member + book)
+- Book list with availability badges
+- Check out a book (dropdowns for book + member selection)
 - Return a book
 - Overdue checkouts list
-- Dashboard stats
+- Dashboard stats summary
 
-**Deployment:** React app + .NET API hosted at rodj.me. API base URL via environment variable.
+**Project location:** `LibraryReact/` at repo root (sibling to `LibraryApi/`)
+
+**API base URL:** Configured via Vite env variable (`VITE_API_BASE_URL`).
+In production: `https://rodj.me/LibraryApi/api`
+
+---
+
+#### Hosting — rodj.me (Winhost)
+
+Hosting is Winhost shared IIS hosting. See reference projects for full credentials:
+- `C:\Dropbox\ARj\rjmono\RjUtil\RjCoreWebAPI\CLAUDE.md` — existing .NET API deployment example
+- `C:\Dropbox\ARj\rjmono\Web\RodjWeb\Rodj.me\CLAUDE.md` — FTP credentials, SSL details
+
+**Key hosting facts:**
+- FTP: `ftp.rodj.me`, user `rodjme00`, password in reference CLAUDE.md
+- SQL Server: `s11.winhost.com`, DB `DB_6218_Rodj` (credentials in reference CLAUDE.md)
+- SSL active at `https://rodj.me` (Let's Encrypt, expires 2026-05-23)
+
+**⚠️ .NET version concern:** Winhost confirmed .NET 9.0 support as of Feb 2026.
+Our project targets .NET 10. Before deploying, verify Winhost .NET 10 support, or
+retarget to `net9.0` for the deployment branch.
+
+**API deployment:**
+1. `dotnet publish -c Release`
+2. FTP upload to `/LibraryApi/` on rodj.me
+3. Configure `/LibraryApi/` as an IIS Application in Winhost control panel
+4. Live at `https://rodj.me/LibraryApi/api/`
+
+**React deployment:**
+1. `vite build` → outputs to `LibraryReact/dist/`
+2. FTP upload `dist/` contents to `/library/` on rodj.me
+3. Live at `https://rodj.me/library/`
+
+**CORS:** API and React app are on the same domain (`rodj.me`) — no CORS configuration
+needed. If testing locally (React dev server on localhost:5173 calling the live API),
+CORS will need to be enabled for localhost in development only.
+
+**`appsettings.Production.json`** (not committed — contains live DB credentials):
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=s11.winhost.com;Database=DB_6218_Rodj;User Id=...;Password=..."
+  }
+}
+```
 
 ---
 

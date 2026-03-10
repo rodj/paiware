@@ -1,4 +1,4 @@
-using LibraryApi.Models;
+using Library.Core.Models;
 
 namespace LibraryApi.Data;
 
@@ -19,7 +19,7 @@ public class InMemoryDataStore
     private void Seed()
     {
         Books.AddRange([
-            new Book { Id = 1, Title = "The Pragmatic Programmer", Author = "Andrew Hunt", Isbn = "978-0135957059" },
+            new Book { Id = 1, Title = "The Pragmatic Programmer", Author = "Andrew Hunt",      Isbn = "978-0135957059" },
             new Book { Id = 2, Title = "Clean Code",               Author = "Robert C. Martin", Isbn = "978-0132350884" },
             new Book { Id = 3, Title = "Design Patterns",          Author = "Gang of Four",     Isbn = "978-0201633610" },
             new Book { Id = 4, Title = "Refactoring",              Author = "Martin Fowler",    Isbn = "978-0134757599" },
@@ -27,14 +27,13 @@ public class InMemoryDataStore
         ]);
 
         Members.AddRange([
-            new Member { Id = 1, Name = "Alice Johnson", Email = "alice@example.com" },
-            new Member { Id = 2, Name = "Bob Smith",     Email = "bob@example.com"   },
-            new Member { Id = 3, Name = "Carol White",   Email = "carol@example.com" },
+            new Member { Id = 1, Name = "Alice Hinson",  Email = "alice@example.com"  },
+            new Member { Id = 2, Name = "Robert Martin", Email = "robert@example.com" },
+            new Member { Id = 3, Name = "Rodj O'Matic",  Email = "rodj@example.com"   },
         ]);
 
         var today = DateTime.UtcNow.Date;
 
-        // Overdue: checked out 20 days ago, due 6 days ago
         Checkouts.Add(new Checkout
         {
             Id = 1,
@@ -45,7 +44,6 @@ public class InMemoryDataStore
             ReturnedAt = null
         });
 
-        // Active: checked out 5 days ago, due in 9 days
         Checkouts.Add(new Checkout
         {
             Id = 2,

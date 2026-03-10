@@ -21,7 +21,20 @@
       }
     },
     {
-      "name": "2. Check out a book",
+      "name": "2. Add a new book",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/books",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Working Effectively with Legacy Code\",\n  \"author\": \"Michael Feathers\",\n  \"isbn\": \"978-0131177055\"\n}"
+        },
+        "description": "Adds a new book. Restart the app and call GET /api/books — the book is still there, proving real persistence. Note: a production app would also include PUT and DELETE, but those were outside the original spec."
+      }
+    },
+    {
+      "name": "3. Check out a book",
       "request": {
         "method": "POST",
         "url": "{{baseUrl}}/api/checkouts",

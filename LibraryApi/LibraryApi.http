@@ -4,7 +4,17 @@
 GET {{baseUrl}}/api/books
 Accept: application/json
 
-### 2. Check out an available book (book 1) to member 1
+### 2. Add a new book (shows persistence — restart the app and it is still there)
+POST {{baseUrl}}/api/books
+Content-Type: application/json
+
+{
+  "title": "Working Effectively with Legacy Code, Vol 1",
+  "author": "Michael Feathers",
+  "isbn": "978-0131177055"
+}
+
+### 3. Check out an available book (book 1) to member 1
 POST {{baseUrl}}/api/checkouts
 Content-Type: application/json
 
@@ -13,7 +23,7 @@ Content-Type: application/json
   "memberId": 1
 }
 
-### 3. Try to check out the same book again (should return 409 Conflict)
+### 4. Try to check out the same book again (should return 409 Conflict)
 POST {{baseUrl}}/api/checkouts
 Content-Type: application/json
 
@@ -22,14 +32,14 @@ Content-Type: application/json
   "memberId": 2
 }
 
-### 4. Return the checkout we just created (id will be 10 — first generated id)
-POST {{baseUrl}}/api/checkouts/10/return
+### 5. Return the checkout we just created (id will be 1 — first generated id in SQL Server)
+POST {{baseUrl}}/api/checkouts/1/return
 Accept: application/json
 
-### 5. Get all overdue checkouts (checkout id 1 is seeded as overdue)
+### 6. Get all overdue checkouts (seeded overdue checkout should appear)
 GET {{baseUrl}}/api/checkouts/overdue
 Accept: application/json
 
-### 6. Dashboard stats
+### 7. Dashboard stats
 GET {{baseUrl}}/api/checkouts/dashboard
 Accept: application/json
