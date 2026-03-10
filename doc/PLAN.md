@@ -183,6 +183,31 @@ CORS will need to be enabled for localhost in development only.
 
 ---
 
+### v4b-migration — EF Migration Demo
+
+**Goal:** Demonstrate a real schema evolution using EF Core migrations.
+**Story:** "This is how you change a live database schema without touching data.
+EF migrations generate a versioned, reversible script from model changes — exactly
+what you'd use in a real production deployment."
+
+**Change:** Add `CreatedAt` and `ModifiedAt` (`DateTime`) audit columns to all
+three tables (Books, Members, Checkouts).
+
+**Steps:**
+1. Add `CreatedAt` and `ModifiedAt` properties to `Book`, `Member`, and `Checkout` models in `Library.Core`
+2. Set sensible defaults in `LibraryContext` (e.g., `HasDefaultValueSql("GETUTCDATE()")`)
+3. Run `dotnet ef migrations add AddAuditColumns --project Library.EF --startup-project LibraryApi`
+4. Inspect the generated migration class — show it in the review as a talking point
+5. Run the app — EF applies the migration automatically at startup (`context.Database.Migrate()`)
+6. Update `DbSeeder` if needed (seed values for the new columns)
+7. Commit and tag `v4b-migration`
+
+**Talking point:** "I didn't write any SQL. I described the intent in C#, and EF
+generated the correct `ALTER TABLE` statements. The migration is checked in alongside
+the code that needs it — if you roll back the code, you can roll back the schema too."
+
+---
+
 ### v5-mcp — MCP Server
 
 **Goal:** Expose the Library API as an MCP (Model Context Protocol) server so an AI

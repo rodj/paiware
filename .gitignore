@@ -13,6 +13,7 @@
 
 # Local developer overrides — connection strings, secrets (do not commit)
 appsettings.Development.json
+appsettings.Production.json
 
 # Build results
 [Dd]ebug/
@@ -59,3 +60,11 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Publish output
+publish-api/
+publish-api2/
+
+# Node / React
+LibraryReact/node_modules/
+LibraryReact/dist/

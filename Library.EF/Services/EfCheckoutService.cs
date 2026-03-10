@@ -9,14 +9,11 @@ public class EfCheckoutService(LibraryContext context) : ICheckoutService
 {
     public IEnumerable<BookSummary> GetAllBooks()
     {
-        var checkedOutBookIds = context.Checkouts
-            .Where(c => c.ReturnedAt == null)
-            .Select(c => c.BookId)
-            .ToHashSet();
-
-        return context.Books.AsNoTracking().Select(b => new BookSummary(
-            b.Id, b.Title, b.Author, b.Isbn,
-            IsAvailable: !checkedOutBookIds.Contains(b.Id)));
+        return context.Books.AsNoTracking()
+            .Select(b => new BookSummary(
+                b.Id, b.Title, b.Author, b.Isbn,
+                !context.Checkouts.Any(c => c.BookId == b.Id && c.ReturnedAt == null)))
+            .ToList();
     }
 
     public BookSummary AddBook(string title, string author, string isbn)
@@ -24,7 +21,7 @@ public class EfCheckoutService(LibraryContext context) : ICheckoutService
         var book = new Book { Title = title, Author = author, Isbn = isbn };
         context.Books.Add(book);
         context.SaveChanges();
-        return new BookSummary(book.Id, book.Title, book.Author, book.Isbn, IsAvailable: true);
+        return new BookSummary(book.Id, book.Title, book.Author, book.Isbn, true);
     }
 
     public CheckoutDetail CheckOutBook(int bookId, int memberId)
