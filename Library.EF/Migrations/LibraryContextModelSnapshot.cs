@@ -17,7 +17,7 @@ namespace Library.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.4")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,6 +33,11 @@ namespace Library.EF.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(0)")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Isbn")
                         .IsRequired()
@@ -61,6 +66,11 @@ namespace Library.EF.Migrations
                     b.Property<DateTime>("CheckedOutAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(0)")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
@@ -82,6 +92,11 @@ namespace Library.EF.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(0)")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Email")
                         .IsRequired()

@@ -11,7 +11,7 @@ public class EfCheckoutService(LibraryContext context) : ICheckoutService
     {
         return context.Books.AsNoTracking()
             .Select(b => new BookSummary(
-                b.Id, b.Title, b.Author, b.Isbn,
+                b.Id, b.Title, b.Author, b.Isbn, b.CreateDate,
                 !context.Checkouts.Any(c => c.BookId == b.Id && c.ReturnedAt == null)))
             .ToList();
     }
@@ -21,7 +21,7 @@ public class EfCheckoutService(LibraryContext context) : ICheckoutService
         var book = new Book { Title = title, Author = author, Isbn = isbn };
         context.Books.Add(book);
         context.SaveChanges();
-        return new BookSummary(book.Id, book.Title, book.Author, book.Isbn, true);
+        return new BookSummary(book.Id, book.Title, book.Author, book.Isbn, book.CreateDate, true);
     }
 
     public CheckoutDetail CheckOutBook(int bookId, int memberId)
@@ -96,5 +96,5 @@ public class EfCheckoutService(LibraryContext context) : ICheckoutService
     }
 
     private static CheckoutDetail ToDetail(Checkout c, Book b, Member m) =>
-        new(c.Id, b.Id, b.Title, m.Id, m.Name, c.CheckedOutAt, c.DueDate, c.ReturnedAt);
+        new(c.Id, c.CreateDate, b.Id, b.Title, m.Id, m.Name, c.CheckedOutAt, c.DueDate, c.ReturnedAt);
 }

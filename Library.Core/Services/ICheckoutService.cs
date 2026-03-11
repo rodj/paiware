@@ -1,11 +1,14 @@
 namespace Library.Core.Services;
 
-public record BookSummary(int Id, string Title, string Author, string Isbn, bool IsAvailable);
+public record BookSummary(int Id, string Title, string Author, string Isbn, DateTime CreateDate, bool IsAvailable);
 
 public record CheckoutDetail(
     int Id,
-    int BookId, string BookTitle,
-    int MemberId, string MemberName,
+	DateTime CreateDate,
+    int BookId,
+	string BookTitle,
+    int MemberId, 
+	string MemberName,
     DateTime CheckedOutAt,
     DateTime DueDate,
     DateTime? ReturnedAt);

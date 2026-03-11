@@ -14,7 +14,7 @@ public class CheckoutService(InMemoryDataStore store) : ICheckoutService
             .ToHashSet();
 
         return store.Books.Select(b => new BookSummary(
-            b.Id, b.Title, b.Author, b.Isbn,
+            b.Id, b.Title, b.Author, b.Isbn, b.CreateDate,
             IsAvailable: !checkedOutBookIds.Contains(b.Id)));
     }
 
@@ -28,7 +28,7 @@ public class CheckoutService(InMemoryDataStore store) : ICheckoutService
             Isbn = isbn
         };
         store.Books.Add(book);
-        return new BookSummary(book.Id, book.Title, book.Author, book.Isbn, IsAvailable: true);
+        return new BookSummary(book.Id, book.Title, book.Author, book.Isbn, book.CreateDate, IsAvailable: true);
     }
 
     public CheckoutDetail CheckOutBook(int bookId, int memberId)
@@ -100,5 +100,5 @@ public class CheckoutService(InMemoryDataStore store) : ICheckoutService
     }
 
     private static CheckoutDetail ToDetail(Checkout c, Book b, Member m) =>
-        new(c.Id, b.Id, b.Title, m.Id, m.Name, c.CheckedOutAt, c.DueDate, c.ReturnedAt);
+        new(c.Id, c.CreateDate, b.Id, b.Title, m.Id, m.Name, c.CheckedOutAt, c.DueDate, c.ReturnedAt);
 }

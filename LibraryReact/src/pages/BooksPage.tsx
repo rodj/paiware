@@ -38,6 +38,7 @@ export default function BooksPage() {
                 <th className="text-left px-4 py-3">Author</th>
                 <th className="text-left px-4 py-3">ISBN</th>
                 <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3">Created</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -47,6 +48,7 @@ export default function BooksPage() {
                   <td className="px-4 py-3 text-gray-600">{book.author}</td>
                   <td className="px-4 py-3 text-gray-400 font-mono text-xs">{book.isbn}</td>
                   <td className="px-4 py-3"><StatusBadge available={book.isAvailable} /></td>
+                  <td className="px-4 py-3 text-gray-400 font-mono text-xs">{new Date(book.createDate).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>

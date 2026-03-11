@@ -62,8 +62,7 @@ TestResult.xml
 nunit-*.xml
 
 # Publish output
-publish-api/
-publish-api2/
+publish-api*/
 
 # Any file whose name contains "_ignore" (case insensitive — git core.ignorecase=true)
 *_ignore*
