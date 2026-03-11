@@ -65,6 +65,9 @@ nunit-*.xml
 publish-api/
 publish-api2/
 
+# Any file whose name contains "_ignore" (case insensitive — git core.ignorecase=true)
+*_ignore*
+
 # Node / React
 LibraryReact/node_modules/
 LibraryReact/dist/

@@ -12,7 +12,7 @@ piece that demonstrates judgment about tradeoffs and priorities.
 
 ## Milestones
 
-### v1-mvp — Functional API, No Database
+### v1-mvp — Functional API, No Database ✅ tagged
 
 **Goal:** Satisfy every functional requirement as quickly as possible.
 **Story:** "All requirements met. Hardcoded seed data. No database, no frontend — just
@@ -73,7 +73,7 @@ constructor DI and registered as a singleton in `Program.cs`. This means:
 
 ---
 
-### v2-tests — xUnit Unit Tests
+### v2-tests — xUnit Unit Tests ✅ tagged
 
 **Goal:** Add a test suite covering all core business logic.
 **Story:** "With the interface already in place, adding tests required no structural
@@ -97,7 +97,7 @@ needed — the constructor injection pattern from v1 makes this natural.
 
 ---
 
-### v3-database — EF Core + SQL Server
+### v3-database — EF Core + SQL Server ✅ tagged
 
 **Goal:** Replace the in-memory store with real persistence.
 **Story:** "Because the service layer was behind an interface, swapping in a real
@@ -113,7 +113,7 @@ database only touched the data layer. Controllers and tests were unchanged."
 
 ---
 
-### v4-react — React Frontend
+### v4-react — React Frontend ✅ tagged, live at rodj.me
 
 **Goal:** Full-stack React frontend deployed at rodj.me, talking directly to the live API.
 **Story:** "The API was already complete and tested. The frontend is a clean layer on top,
@@ -153,9 +153,8 @@ Hosting is Winhost shared IIS hosting. See reference projects for full credentia
 - SQL Server: `s11.winhost.com`, DB `DB_6218_Rodj` (credentials in reference CLAUDE.md)
 - SSL active at `https://rodj.me` (Let's Encrypt, expires 2026-05-23)
 
-**⚠️ .NET version concern:** Winhost confirmed .NET 9.0 support as of Feb 2026.
-Our project targets .NET 10. Before deploying, verify Winhost .NET 10 support, or
-retarget to `net9.0` for the deployment branch.
+**✅ .NET version:** Winhost supports .NET 9. Project retargeted from net10.0 to net9.0
+(EF Core / OpenApi packages downgraded to 9.x accordingly).
 
 **API deployment:**
 1. `dotnet publish -c Release`
@@ -183,7 +182,7 @@ CORS will need to be enabled for localhost in development only.
 
 ---
 
-### v4b-migration — EF Migration Demo
+### v4b-migration — EF Migration Demo ⬅ NEXT
 
 **Goal:** Demonstrate a real schema evolution using EF Core migrations.
 **Story:** "This is how you change a live database schema without touching data.
