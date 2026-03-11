@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <BaseOutputPath>$(RODJBUILD)\paiwares\$(MSBuildProjectName)\bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(RODJBUILD)\paiwares\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+</Project>
